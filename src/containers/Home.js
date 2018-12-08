@@ -11,7 +11,7 @@ export default class Home extends Component {
 
     this.state = {
       isLoading: true,
-      notes: []
+      locations: []
     };
   }
 
@@ -21,8 +21,8 @@ export default class Home extends Component {
     }
 
     try {
-      const notes = await this.notes();
-      this.setState({ notes });
+      const locations = await this.notes();
+      this.setState({ locations });
     } catch (e) {
       alert(e);
     }
@@ -31,28 +31,28 @@ export default class Home extends Component {
   }
 
   notes() {
-    return API.get("notes", "/notes");
+    return API.get("locations", "/locations");
   }
 
-  renderNotesList(notes) {
-    return [{}].concat(notes).map(
-      (note, i) =>
+  renderLocationsList(locations) {
+    return [{}].concat(locations).map(
+      (location, i) =>
         i !== 0
           ? <LinkContainer
-              key={note.noteId}
-              to={`/notes/${note.noteId}`}
+              key={location.id}
+              to={`/notes/${location.id}`}
             >
-              <ListGroupItem header={note.content.trim().split("\n")[0]}>
-                {"Created: " + new Date(note.createdAt).toLocaleString()}
+              <ListGroupItem header={location.description.trim().split("\n")[0]}>
+                {"Created: " + new Date(location.createdAt).toLocaleString()}
               </ListGroupItem>
             </LinkContainer>
           : <LinkContainer
               key="new"
-              to="/notes/new"
+              to="/locations/new"
             >
               <ListGroupItem>
                 <h4>
-                  <b>{"\uFF0B"}</b> Create a new note
+                  <b>{"\uFF0B"}</b> Create a new location
                 </h4>
               </ListGroupItem>
             </LinkContainer>
@@ -63,7 +63,7 @@ export default class Home extends Component {
     return (
       <div className="lander">
         <h1>Scratch</h1>
-        <p>A simple note taking app</p>
+        <p>A simple data collection app</p>
         <div>
           <Link to="/login" className="btn btn-info btn-lg">
             Login
@@ -76,12 +76,12 @@ export default class Home extends Component {
     );
   }
 
-  renderNotes() {
+  renderLocations() {
     return (
-      <div className="notes">
-        <PageHeader>Your Notes</PageHeader>
+      <div className="locations">
+        <PageHeader>Your Locations</PageHeader>
         <ListGroup>
-          {!this.state.isLoading && this.renderNotesList(this.state.notes)}
+          {!this.state.isLoading && this.renderLocationsList(this.state.locations)}
         </ListGroup>
       </div>
     );
@@ -90,7 +90,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="Home">
-        {this.props.isAuthenticated ? this.renderNotes() : this.renderLander()}
+        {this.props.isAuthenticated ? this.renderLocations() : this.renderLander()}
       </div>
     );
   }
