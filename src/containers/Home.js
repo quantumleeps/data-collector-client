@@ -40,7 +40,7 @@ export default class Home extends Component {
         i !== 0
           ? <LinkContainer
               key={location.id}
-              to={`/notes/${location.id}`}
+              to={`/locations/${location.id}`}
             >
               <ListGroupItem header={location.name + "-" + location.country}>
                 {"Created: " + new Date(location.createdAt).toLocaleString()}<br />
