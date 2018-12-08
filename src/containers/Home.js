@@ -44,7 +44,7 @@ export default class Home extends Component {
             >
               <ListGroupItem header={location.locationName + "-" + location.country}>
                 {"Created: " + new Date(location.createdAt).toLocaleString()}<br />
-                {"Modified: " + location.modifiedAt.toLocaleString()}<br />
+                {"Modified: " + new Date(location.modifiedAt).toLocaleString()}<br />
                 {location.description.trim().split("\n")[0]}
               </ListGroupItem>
             </LinkContainer>

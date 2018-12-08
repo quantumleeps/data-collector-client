@@ -70,8 +70,7 @@ export default class Locations extends Component {
             await this.saveLocation({
                 locationName: this.state.locationName,
                 country: this.state.country,
-                description: this.state.description,
-                modifiedAt: Date.now()
+                description: this.state.description
             });
             this.props.history.push("/");
         } catch (e) {
