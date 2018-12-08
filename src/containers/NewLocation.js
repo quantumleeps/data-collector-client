@@ -10,7 +10,7 @@ export default class NewLocation extends Component {
 
     this.state = {
       isLoading: null,
-      name: "",
+      locationName: "",
       country: "",
       description: ""
     };
@@ -23,7 +23,7 @@ export default class NewLocation extends Component {
   }
 
   validateForm() {
-    return this.state.name.length > 0;
+    return this.state.locationName.length > 0;
   }
 
   handleChange = event => {
@@ -39,7 +39,7 @@ export default class NewLocation extends Component {
 
     try {
       await this.createLocation({
-        name: this.state.name,
+        locationName: this.state.locationName,
         country: this.state.country,
         description: this.state.description
       });
@@ -54,11 +54,11 @@ export default class NewLocation extends Component {
     return (
       <div className="NewLocation">
         <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="name">
+          <FormGroup controlId="locationName">
             <ControlLabel>Name</ControlLabel>
             <FormControl
               onChange={this.handleChange}
-              value={this.state.name}
+              value={this.state.locationName}
               componentClass="input"
             />
           </FormGroup>

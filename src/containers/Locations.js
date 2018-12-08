@@ -14,7 +14,7 @@ export default class Locations extends Component {
             isLoading: null,
             isDeleting: null,
             location: null,
-            name: null,
+            locationName: null,
             country: null,
             description: null
         };
@@ -23,11 +23,11 @@ export default class Locations extends Component {
     async componentDidMount() {
         try {
             const location = await this.getLocation();
-            const { name, country, description } = location;
+            const { locationName, country, description } = location;
 
             this.setState({
                 location,
-                name,
+                locationName,
                 country,
                 description
             });
@@ -51,7 +51,7 @@ export default class Locations extends Component {
     }
 
     validateForm() {
-        return this.state.name.length > 0;
+        return this.state.locationName.length > 0;
     }
 
     handleChange = event => {
@@ -68,9 +68,9 @@ export default class Locations extends Component {
 
         try {
             await this.saveLocation({
-                name: this.state.name,
+                locationName: this.state.locationName,
                 country: this.state.country,
-                description: this.state.country,
+                description: this.state.description,
                 modifiedAt: Date.now()
             });
             this.props.history.push("/");
@@ -107,11 +107,11 @@ export default class Locations extends Component {
             <div className="Locations">
                 {this.state.location &&
                     <form onSubmit={this.handleSubmit}>
-                        <FormGroup controlId="name">
+                        <FormGroup controlId="locationName">
                             <ControlLabel>Location Name</ControlLabel>
                             <FormControl
                                 onChange={this.handleChange}
-                                value={this.state.name}
+                                value={this.state.locationName}
                                 componentClass="input"
                             />
                         </FormGroup>

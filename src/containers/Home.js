@@ -42,9 +42,9 @@ export default class Home extends Component {
               key={location.id}
               to={`/locations/${location.id}`}
             >
-              <ListGroupItem header={location.name + "-" + location.country}>
+              <ListGroupItem header={location.locationName + "-" + location.country}>
                 {"Created: " + new Date(location.createdAt).toLocaleString()}<br />
-                {"Modified: " + location.modifiedAt.toLocaleString()}
+                {"Modified: " + location.modifiedAt.toLocaleString()}<br />
                 {location.description.trim().split("\n")[0]}
               </ListGroupItem>
             </LinkContainer>
