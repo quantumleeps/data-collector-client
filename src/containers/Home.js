@@ -42,8 +42,10 @@ export default class Home extends Component {
               key={location.id}
               to={`/notes/${location.id}`}
             >
-              <ListGroupItem header={location.description.trim().split("\n")[0]}>
-                {"Created: " + new Date(location.createdAt).toLocaleString()}
+              <ListGroupItem header={location.name + "-" + location.country}>
+                {"Created: " + new Date(location.createdAt).toLocaleString()}<br />
+                {"Modified: " + location.modifiedAt.toLocaleString()}
+                {location.description.trim().split("\n")[0]}
               </ListGroupItem>
             </LinkContainer>
           : <LinkContainer
