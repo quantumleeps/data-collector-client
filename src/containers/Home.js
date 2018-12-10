@@ -11,8 +11,25 @@ export default class Home extends Component {
 
     this.state = {
       isLoading: true,
-      locations: []
+      locations: [],
+      selectedCountry: ""
     };
+
+    this.onCountrySelect = this.onCountrySelect.bind(this)
+  }
+
+  async onCountrySelect(event) {
+    this.setState({ selectedCountry: event.target.value })
+    this.setState({ isLoading: true });
+
+    try {
+      const locations = await this.locations(event.target.value);
+      this.setState({ locations });
+    } catch (e) {
+      alert(e);
+    }
+
+    this.setState({ isLoading: false });
   }
 
   async componentDidMount() {
@@ -21,7 +38,7 @@ export default class Home extends Component {
     }
 
     try {
-      const locations = await this.locations();
+      const locations = await this.locations(this.state.selectedCountry);
       const countries = await this.countries();
       this.setState({ locations });
       this.setState({ countries });
@@ -32,8 +49,15 @@ export default class Home extends Component {
     this.setState({ isLoading: false });
   }
 
-  locations() {
-    return API.get("locations", "/locations");
+  locations(country) {
+    if (country.length < 1 || country === "select") {
+      console.log("got here 1")
+      return API.get("locations", "/locations");
+    } else {
+      console.log("got here 2")
+      return API.get("locations", `/locations/${country}`);
+    }
+    
   }
 
   countries() {
@@ -99,7 +123,12 @@ export default class Home extends Component {
         <PageHeader>Your Locations</PageHeader>
         <FormGroup controlId="formControlsSelect">
           <ControlLabel>Select a Country</ControlLabel>
-          <FormControl componentClass="select" placeholder="select">
+          <FormControl 
+            componentClass="select" 
+            placeholder="select" 
+            onChange={this.onCountrySelect}
+            value={this.state.selectedCountry}
+          >
             {!this.state.isLoading && this.renderCountryList(this.state.countries)}
           </FormControl>
         </FormGroup>
