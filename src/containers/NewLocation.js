@@ -9,11 +9,31 @@ export default class NewLocation extends Component {
     super(props);
 
     this.state = {
-      isLoading: null,
+      isLoading: true,
       locationName: "",
       countryId: "",
-      description: ""
+      description: "",
+      countries: []
     };
+  }
+
+  async componentDidMount() {
+    if (!this.props.isAuthenticated) {
+      return;
+    }
+
+    try {
+      const countries = await this.countries();
+      this.setState({ countries });
+    } catch (e) {
+      alert(e);
+    }
+
+    this.setState({ isLoading: false });
+  }
+
+  countries() {
+    return API.get("countries", "/countries");
   }
 
   createLocation(location) {
@@ -50,6 +70,15 @@ export default class NewLocation extends Component {
     }
   }
 
+  renderCountryList(countries) {
+    return [{}].concat(countries).map(
+      (country, i) =>
+        i !== 0
+          ? <option key={country.countryId} value={country.countryId}>{country.countryName}</option>
+          : <option key="select" value="select">select...</option>
+    )
+  }
+
   render() {
     return (
       <div className="NewLocation">
@@ -62,13 +91,19 @@ export default class NewLocation extends Component {
               componentClass="input"
             />
           </FormGroup>
+
+
           <FormGroup controlId="countryId">
             <ControlLabel>Country Id</ControlLabel>
             <FormControl
               onChange={this.handleChange}
               value={this.state.countryId}
-              componentClass="input"
-            />
+              componentClass="select"
+            > 
+              {!this.state.isLoading && this.renderCountryList(this.state.countries)}
+            </FormControl>
+
+
           </FormGroup>
           <FormGroup controlId="description">
             <ControlLabel>Description</ControlLabel>
