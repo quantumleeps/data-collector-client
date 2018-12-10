@@ -11,7 +11,7 @@ export default class NewLocation extends Component {
     this.state = {
       isLoading: null,
       locationName: "",
-      country: "",
+      countryId: "",
       description: ""
     };
   }
@@ -40,7 +40,7 @@ export default class NewLocation extends Component {
     try {
       await this.createLocation({
         locationName: this.state.locationName,
-        country: this.state.country,
+        countryId: this.state.countryId,
         description: this.state.description
       });
       this.props.history.push("/");
@@ -62,11 +62,11 @@ export default class NewLocation extends Component {
               componentClass="input"
             />
           </FormGroup>
-          <FormGroup controlId="country">
-            <ControlLabel>Country</ControlLabel>
+          <FormGroup controlId="countryId">
+            <ControlLabel>Country Id</ControlLabel>
             <FormControl
               onChange={this.handleChange}
-              value={this.state.country}
+              value={this.state.countryId}
               componentClass="input"
             />
           </FormGroup>

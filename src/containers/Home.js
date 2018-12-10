@@ -21,7 +21,7 @@ export default class Home extends Component {
     }
 
     try {
-      const locations = await this.notes();
+      const locations = await this.locations();
       this.setState({ locations });
     } catch (e) {
       alert(e);
@@ -30,10 +30,10 @@ export default class Home extends Component {
     this.setState({ isLoading: false });
   }
 
-  notes() {
+  locations() {
     return API.get("locations", "/locations");
   }
-
+ 
   renderLocationsList(locations) {
     return [{}].concat(locations).map(
       (location, i) =>
