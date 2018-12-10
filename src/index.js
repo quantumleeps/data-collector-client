@@ -30,6 +30,10 @@ Amplify.configure({
         name: "locations",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION
+      },{
+        name: "countries",
+        endpoint: config.apiGateway.URL,
+        region: config.apiGateway.REGION
       }
     ]
   }

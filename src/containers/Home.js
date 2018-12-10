@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { API } from "aws-amplify";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
-import { PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
+import { FormGroup, ControlLabel, FormControl, PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
 import "./Home.css";
 
 export default class Home extends Component {
@@ -22,7 +22,9 @@ export default class Home extends Component {
 
     try {
       const locations = await this.locations();
+      const countries = await this.countries();
       this.setState({ locations });
+      this.setState({ countries });
     } catch (e) {
       alert(e);
     }
@@ -33,32 +35,45 @@ export default class Home extends Component {
   locations() {
     return API.get("locations", "/locations");
   }
- 
+
+  countries() {
+    return API.get("countries", "/countries");
+  }
+
   renderLocationsList(locations) {
     return [{}].concat(locations).map(
       (location, i) =>
         i !== 0
           ? <LinkContainer
-              key={location.id}
-              to={`/locations/${location.id}`}
-            >
-              <ListGroupItem header={location.locationName + "-" + location.country}>
-                {"Created: " + new Date(location.createdAt).toLocaleString()}<br />
-                {"Modified: " + new Date(location.modifiedAt).toLocaleString()}<br />
-                {location.description.trim().split("\n")[0]}
-              </ListGroupItem>
-            </LinkContainer>
+            key={location.locationId}
+            to={`/locations/${location.countryId}/${location.locationId}`}
+          >
+            <ListGroupItem header={location.locationName + "-" + location.countryId}>
+              {"Created: " + new Date(location.createdAt).toLocaleString()}<br />
+              {"Modified: " + new Date(location.modifiedAt).toLocaleString()}<br />
+              {location.description.trim().split("\n")[0]}
+            </ListGroupItem>
+          </LinkContainer>
           : <LinkContainer
-              key="new"
-              to="/locations/new"
-            >
-              <ListGroupItem>
-                <h4>
-                  <b>{"\uFF0B"}</b> Create a new location
+            key="new"
+            to="/locations/new"
+          >
+            <ListGroupItem>
+              <h4>
+                <b>{"\uFF0B"}</b> Create a new location
                 </h4>
-              </ListGroupItem>
-            </LinkContainer>
+            </ListGroupItem>
+          </LinkContainer>
     );
+  }
+
+  renderCountryList(countries) {
+    return [{}].concat(countries).map(
+      (country, i) =>
+        i !== 0
+          ? <option key={country.countryId} value={country.countryId}>{country.countryName}</option>
+          : <option key="select" value="select">select...</option>
+    )
   }
 
   renderLander() {
@@ -82,6 +97,12 @@ export default class Home extends Component {
     return (
       <div className="locations">
         <PageHeader>Your Locations</PageHeader>
+        <FormGroup controlId="formControlsSelect">
+          <ControlLabel>Select a Country</ControlLabel>
+          <FormControl componentClass="select" placeholder="select">
+            {!this.state.isLoading && this.renderCountryList(this.state.countries)}
+          </FormControl>
+        </FormGroup>
         <ListGroup>
           {!this.state.isLoading && this.renderLocationsList(this.state.locations)}
         </ListGroup>
