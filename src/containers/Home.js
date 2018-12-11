@@ -134,7 +134,7 @@ export default class Home extends Component {
             onChange={this.onCountrySelect}
             value={this.state.selectedCountry}
           >
-            {!this.state.isLoading && this.renderCountryList(this.props.countries)}
+            {this.props.countries && !this.state.isLoading && this.renderCountryList(this.props.countries)}
           </FormControl>
         </FormGroup>
         <ListGroup>
