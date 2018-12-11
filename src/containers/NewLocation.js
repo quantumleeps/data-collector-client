@@ -89,7 +89,7 @@ export default class NewLocation extends Component {
               value={this.state.countryId}
               componentClass="select"
             > 
-              {!this.state.isLoading && this.renderCountryList(this.props.countries)}
+              {this.props.countries && !this.state.isLoading && this.renderCountryList(this.props.countries)}
             </FormControl>
 
 

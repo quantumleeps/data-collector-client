@@ -77,11 +77,13 @@ export default class Home extends Component {
             key={location.locationId}
             to={`/locations/${location.countryId}/${location.locationId}`}
           >
-            <ListGroupItem header={location.locationName + "-" + this.outputCountryName(this.props.countries, location.countryId)}>
+            {this.props.countries && 
+              <ListGroupItem header={location.locationName + "-" + this.outputCountryName(this.props.countries, location.countryId)}>
               {"Created: " + new Date(location.createdAt).toLocaleString()}<br />
               {"Modified: " + new Date(location.modifiedAt).toLocaleString()}<br />
               {location.description.trim().split("\n")[0]}
             </ListGroupItem>
+            }
           </LinkContainer>
           : <LinkContainer
             key="new"

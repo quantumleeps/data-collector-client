@@ -121,7 +121,7 @@ export default class Locations extends Component {
                         <FormGroup controlId="countryId">
                             <ControlLabel>Country: </ControlLabel>
                             <span className="country-text">
-                                {this.outputCountryName(this.props.countries, this.state.countryId)}
+                                {this.props.countries && this.outputCountryName(this.props.countries, this.state.countryId)}
                             </span>
                         </FormGroup>
                         <FormGroup controlId="locationName">
