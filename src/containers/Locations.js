@@ -35,7 +35,6 @@ export default class Locations extends Component {
             });
 
             this.setState({ isLoading: false })
-            console.log(this.state.countries)
         } catch (e) {
             alert(e);
         }
@@ -50,7 +49,7 @@ export default class Locations extends Component {
     }
 
     saveLocation(location) {
-        return API.put("locations", `/locations/${this.props.match.params.id}`, {
+        return API.put("locations", `/locations/${this.props.match.params.countryId}/${this.props.match.params.locationId}`, {
             body: location
         });
     }
@@ -78,7 +77,7 @@ export default class Locations extends Component {
         try {
             await this.saveLocation({
                 locationName: this.state.locationName,
-                country: this.state.country,
+                countryId: this.state.countryId,
                 description: this.state.description
             });
             this.props.history.push("/");
@@ -110,20 +109,29 @@ export default class Locations extends Component {
         }
     }
 
-    renderCountryList(countries) {
-        return [{}].concat(countries).map(
-          (country, i) =>
-            i !== 0
-              ? <option key={country.countryId} value={country.countryId}>{country.countryName}</option>
-              : <option key="select" value="select">select...</option>
+    outputCountryName(countries, countryId) {
+        let output = null
+        countries.map(
+            (country, i) => {
+                if (country['countryId'] === countryId) {
+                    output = country['countryName']
+                }
+            }
         )
-      }
+        return output
+    }
 
     render() {
         return (
             <div className="Locations">
                 {this.state.location &&
                     <form onSubmit={this.handleSubmit}>
+                        <FormGroup controlId="countryId">
+                            <ControlLabel>Country: </ControlLabel>
+                            <span className="country-text">
+                                {this.outputCountryName(this.state.countries, this.state.countryId)}
+                            </span>
+                        </FormGroup>
                         <FormGroup controlId="locationName">
                             <ControlLabel>Location Name</ControlLabel>
                             <FormControl
@@ -131,24 +139,6 @@ export default class Locations extends Component {
                                 value={this.state.locationName}
                                 componentClass="input"
                             />
-                        </FormGroup>
-                        {/* <FormGroup controlId="country">
-                            <ControlLabel>Country</ControlLabel>
-                            <FormControl
-                                onChange={this.handleChange}
-                                value={this.state.country}
-                                componentClass="input"
-                            />
-                        </FormGroup> */}
-                        <FormGroup controlId="countryId">
-                            <ControlLabel>Country</ControlLabel>
-                            <FormControl
-                                onChange={this.handleChange}
-                                value={this.state.countryId}
-                                componentClass="select"
-                            >
-                                {!this.state.isLoading && this.renderCountryList(this.state.countries)}
-                            </FormControl>
                         </FormGroup>
                         <FormGroup controlId="description">
                             <ControlLabel>Description</ControlLabel>
