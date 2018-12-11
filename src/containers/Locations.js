@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { API, Storage } from "aws-amplify";
+import { API } from "aws-amplify";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
-import { s3Upload } from "../libs/awsLib";
-import config from "../config";
 import "./Locations.css";
 
 export default class Locations extends Component {
@@ -111,8 +109,8 @@ export default class Locations extends Component {
 
     outputCountryName(countries, countryId) {
         let output = null
-        countries.map(
-            (country, i) => {
+        countries.forEach(
+            (country) => {
                 if (country['countryId'] === countryId) {
                     output = country['countryName']
                 }

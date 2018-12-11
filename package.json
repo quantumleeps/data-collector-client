@@ -1,5 +1,5 @@
 {
-  "name": "notes-app",
+  "name": "data-collector-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

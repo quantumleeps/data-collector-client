@@ -52,10 +52,8 @@ export default class Home extends Component {
 
   locations(country) {
     if (country.length < 1 || country === "select") {
-      console.log("got here 1")
       return API.get("locations", "/locations");
     } else {
-      console.log("got here 2")
       return API.get("locations", `/locations/${country}`);
     }
     
@@ -67,7 +65,7 @@ export default class Home extends Component {
 
   outputCountryName(countries, countryId) {
     let output = null
-    countries.map(
+    countries.forEach(
       (country, i) => {
         if (country['countryId'] === countryId) {
           output = country['countryName']
