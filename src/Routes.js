@@ -19,7 +19,7 @@ export default ({ childProps }) =>
     <UnauthenticatedRoute path="/login" exact component={Login} props={childProps} />
     <UnauthenticatedRoute path="/signup" exact component={Signup} props={childProps} />
     <AuthenticatedRoute path="/locations/new" exact component={NewLocation} props={childProps} />
-    <AuthenticatedRoute path="/locations/:id" exact component={Locations} props={childProps} />
+    <AuthenticatedRoute path="/locations/:countryId/:locationId" exact component={Locations} props={childProps} />
     {/* <AuthenticatedRoute path="/notes/new" exact component={NewNote} props={childProps} /> */}
     {/* <AuthenticatedRoute path="/notes/:id" exact component={Notes} props={childProps} /> */}
     { /* Finally, catch all unmatched routes */ }

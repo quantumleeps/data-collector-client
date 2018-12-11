@@ -15,7 +15,7 @@ export default class Locations extends Component {
             isDeleting: null,
             location: null,
             locationName: null,
-            country: null,
+            countryId: null,
             description: null
         };
     }
@@ -23,21 +23,30 @@ export default class Locations extends Component {
     async componentDidMount() {
         try {
             const location = await this.getLocation();
-            const { locationName, country, description } = location;
+            const countries = await this.countries();
+            const { locationName, countryId, description } = location;
 
             this.setState({
                 location,
                 locationName,
-                country,
-                description
+                countryId,
+                description,
+                countries
             });
+
+            this.setState({ isLoading: false })
+            console.log(this.state.countries)
         } catch (e) {
             alert(e);
         }
     }
 
     getLocation() {
-        return API.get("locations", `/locations/${this.props.match.params.id}`);
+        return API.get("locations", `/locations/${this.props.match.params.countryId}/${this.props.match.params.locationId}`);
+    }
+
+    countries() {
+        return API.get("countries", "/countries")
     }
 
     saveLocation(location) {
@@ -101,6 +110,15 @@ export default class Locations extends Component {
         }
     }
 
+    renderCountryList(countries) {
+        return [{}].concat(countries).map(
+          (country, i) =>
+            i !== 0
+              ? <option key={country.countryId} value={country.countryId}>{country.countryName}</option>
+              : <option key="select" value="select">select...</option>
+        )
+      }
+
     render() {
         return (
             <div className="Locations">
@@ -114,13 +132,23 @@ export default class Locations extends Component {
                                 componentClass="input"
                             />
                         </FormGroup>
-                        <FormGroup controlId="country">
+                        {/* <FormGroup controlId="country">
                             <ControlLabel>Country</ControlLabel>
                             <FormControl
                                 onChange={this.handleChange}
                                 value={this.state.country}
                                 componentClass="input"
                             />
+                        </FormGroup> */}
+                        <FormGroup controlId="countryId">
+                            <ControlLabel>Country</ControlLabel>
+                            <FormControl
+                                onChange={this.handleChange}
+                                value={this.state.countryId}
+                                componentClass="select"
+                            >
+                                {!this.state.isLoading && this.renderCountryList(this.state.countries)}
+                            </FormControl>
                         </FormGroup>
                         <FormGroup controlId="description">
                             <ControlLabel>Description</ControlLabel>
