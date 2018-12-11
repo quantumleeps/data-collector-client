@@ -36,7 +36,12 @@ export default class Locations extends Component {
     render() {
         return (
             <div>
-                {!this.state.isLoading && <EditLocation location={this.state.location} history={this.props.history} />}
+                {!this.state.isLoading && 
+                    <EditLocation 
+                        location={this.state.location} 
+                        history={this.props.history} 
+                        countries={this.props.countries}
+                        />}
             </div>
         )
     }

@@ -21,6 +21,7 @@ export default class EditLocation extends Component {
     async componentDidMount() {
         try {
             const location = this.props.location
+
             const { locationId, locationName, countryId, description } = location;
 
             this.setState({
@@ -30,7 +31,7 @@ export default class EditLocation extends Component {
                 countryId,
                 description
             });
-
+            console.log(this.state.countries)
             this.setState({ isLoading: false })
         } catch (e) {
             alert(e);
