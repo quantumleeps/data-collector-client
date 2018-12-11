@@ -56,7 +56,7 @@ export default class Locations extends Component {
     }
 
     deleteLocation() {
-        return API.del("locations", `/locations/${this.props.match.params.id}`);
+        return API.del("locations", `/locations/${this.props.match.params.countryId}/${this.props.match.params.locationId}`);
     }
 
     validateForm() {
