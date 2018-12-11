@@ -67,7 +67,8 @@ export default class Locations extends Component {
                     onClick={this.toggleIsEditingLocationInfo}
                     text="Edit Location Info"
                     loadingText="Editing..."
-                />
+                /><br /><br />
+                <b>Equipment table:</b><br />
                 <NodeTable />
             </span>
         )

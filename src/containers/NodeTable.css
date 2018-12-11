@@ -1,0 +1,87 @@
+.wrapper {
+    margin: 20px;
+    display: grid;
+    grid-template-columns: repeat(20);
+    grid-gap: 4px;
+    grid-auto-rows: auto;
+  }
+  .one {
+    /* background-color: red; */
+    grid-column: 1 / 18;
+    grid-row: 1;
+  }
+  .one-right {
+    /* background-color: black; */
+    grid-column: 18 / 20;
+    grid-row: 1
+  }
+  .two { 
+    /* background-color: green; */
+    grid-column: 2 / 20;
+    grid-row: 2;
+  }
+  .three {
+    /* background-color: orange; */
+    grid-column: 3 / 20;
+    grid-row: 3;
+  }
+  .four {
+    /* background-color: purple; */
+    grid-column: 2 / 20;
+    grid-row: 5;
+  }
+  .five {
+    /* background-color: yellow; */
+    grid-column: 1 / 20;
+    grid-row: 6;
+  }
+  .six {
+    /* background-color: grey; */
+    grid-column: 1 / 20;
+    grid-row: 7;
+  }
+  .seven {
+    /* background-color: purple; */
+    grid-column: 3 / 20;
+    grid-row: 4;
+  }
+
+  .eight {
+    /* background-color: purple; */
+    grid-column: 1 / 20;
+    grid-row: 8;
+  }
+
+
+  .Node {
+      padding: 10px;
+      border: 2px solid black;
+      font-family: "Open Sans", sans-serif;
+      font-weight: 600;
+      overflow: hidden;
+      line-height: 1.5;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      clear: both;
+      border-radius: 4px
+  }
+
+  .NodeLink {
+      padding-left: 10px;
+  }
+
+  .glyphicon {
+      margin-right: 10px;
+  }
+
+  .lefty {
+    float: left;
+  }
+
+  .righty {
+    float: right;
+  }
+
+  .rowbox {
+    grid-column: 1 / 20;
+  }
