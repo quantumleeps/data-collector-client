@@ -16,6 +16,7 @@ export default class Home extends Component {
     };
 
     this.onCountrySelect = this.onCountrySelect.bind(this)
+    // this.outputCountryName = this.outputCountryName.bind(this)
   }
 
   async onCountrySelect(event) {
@@ -64,6 +65,18 @@ export default class Home extends Component {
     return API.get("countries", "/countries");
   }
 
+  outputCountryName(countries, countryId) {
+    let output = null
+    countries.map(
+      (country, i) => {
+        if (country['countryId'] === countryId) {
+          output = country['countryName']
+        }
+      }
+    )
+    return output
+  }
+
   renderLocationsList(locations) {
     return [{}].concat(locations).map(
       (location, i) =>
@@ -72,7 +85,7 @@ export default class Home extends Component {
             key={location.locationId}
             to={`/locations/${location.countryId}/${location.locationId}`}
           >
-            <ListGroupItem header={location.locationName + "-" + location.countryId}>
+            <ListGroupItem header={location.locationName + "-" + this.outputCountryName(this.state.countries, location.countryId)}>
               {"Created: " + new Date(location.createdAt).toLocaleString()}<br />
               {"Modified: " + new Date(location.modifiedAt).toLocaleString()}<br />
               {location.description.trim().split("\n")[0]}
