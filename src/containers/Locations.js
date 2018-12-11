@@ -21,15 +21,13 @@ export default class Locations extends Component {
     async componentDidMount() {
         try {
             const location = await this.getLocation();
-            const countries = await this.countries();
             const { locationName, countryId, description } = location;
 
             this.setState({
                 location,
                 locationName,
                 countryId,
-                description,
-                countries
+                description
             });
 
             this.setState({ isLoading: false })
@@ -40,10 +38,6 @@ export default class Locations extends Component {
 
     getLocation() {
         return API.get("locations", `/locations/${this.props.match.params.countryId}/${this.props.match.params.locationId}`);
-    }
-
-    countries() {
-        return API.get("countries", "/countries")
     }
 
     saveLocation(location) {
@@ -127,7 +121,7 @@ export default class Locations extends Component {
                         <FormGroup controlId="countryId">
                             <ControlLabel>Country: </ControlLabel>
                             <span className="country-text">
-                                {this.outputCountryName(this.state.countries, this.state.countryId)}
+                                {this.outputCountryName(this.props.countries, this.state.countryId)}
                             </span>
                         </FormGroup>
                         <FormGroup controlId="locationName">

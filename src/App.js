@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Auth } from "aws-amplify";
+import { API } from "aws-amplify";
 import { Link, withRouter } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -18,8 +19,13 @@ class App extends Component {
 
   async componentDidMount() {
     try {
+
+
       await Auth.currentSession();
       this.userHasAuthenticated(true);
+
+      const countries = await this.countries();
+      this.setState({ countries })
     }
     catch(e) {
       if (e !== 'No current user') {
@@ -29,6 +35,11 @@ class App extends Component {
 
     this.setState({ isAuthenticating: false });
   }
+
+  countries() {
+    return API.get("countries", "/countries");
+  }
+
 
   userHasAuthenticated = authenticated => {
     this.setState({ isAuthenticated: authenticated });
@@ -45,7 +56,8 @@ class App extends Component {
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+      userHasAuthenticated: this.userHasAuthenticated,
+      countries: this.state.countries
     };
 
     return (

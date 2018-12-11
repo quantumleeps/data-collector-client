@@ -40,9 +40,7 @@ export default class Home extends Component {
 
     try {
       const locations = await this.locations(this.state.selectedCountry);
-      const countries = await this.countries();
       this.setState({ locations });
-      this.setState({ countries });
     } catch (e) {
       alert(e);
     }
@@ -57,10 +55,6 @@ export default class Home extends Component {
       return API.get("locations", `/locations/${country}`);
     }
     
-  }
-
-  countries() {
-    return API.get("countries", "/countries");
   }
 
   outputCountryName(countries, countryId) {
@@ -83,7 +77,7 @@ export default class Home extends Component {
             key={location.locationId}
             to={`/locations/${location.countryId}/${location.locationId}`}
           >
-            <ListGroupItem header={location.locationName + "-" + this.outputCountryName(this.state.countries, location.countryId)}>
+            <ListGroupItem header={location.locationName + "-" + this.outputCountryName(this.props.countries, location.countryId)}>
               {"Created: " + new Date(location.createdAt).toLocaleString()}<br />
               {"Modified: " + new Date(location.modifiedAt).toLocaleString()}<br />
               {location.description.trim().split("\n")[0]}
@@ -140,7 +134,7 @@ export default class Home extends Component {
             onChange={this.onCountrySelect}
             value={this.state.selectedCountry}
           >
-            {!this.state.isLoading && this.renderCountryList(this.state.countries)}
+            {!this.state.isLoading && this.renderCountryList(this.props.countries)}
           </FormControl>
         </FormGroup>
         <ListGroup>

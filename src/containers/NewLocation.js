@@ -13,7 +13,6 @@ export default class NewLocation extends Component {
       locationName: "",
       countryId: "",
       description: "",
-      countries: []
     };
   }
 
@@ -22,19 +21,9 @@ export default class NewLocation extends Component {
       return;
     }
 
-    try {
-      const countries = await this.countries();
-      this.setState({ countries });
-    } catch (e) {
-      alert(e);
-    }
-
     this.setState({ isLoading: false });
   }
 
-  countries() {
-    return API.get("countries", "/countries");
-  }
 
   createLocation(location) {
     return API.post("locations", "/locations", {
@@ -100,7 +89,7 @@ export default class NewLocation extends Component {
               value={this.state.countryId}
               componentClass="select"
             > 
-              {!this.state.isLoading && this.renderCountryList(this.state.countries)}
+              {!this.state.isLoading && this.renderCountryList(this.props.countries)}
             </FormControl>
 
 
