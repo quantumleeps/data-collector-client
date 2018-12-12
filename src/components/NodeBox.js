@@ -4,9 +4,6 @@ import "./NodeBox.css";
 import DataPointBox from "./DataPointBox"
 
 export default class NodeBox extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         return (

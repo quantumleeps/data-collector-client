@@ -9,6 +9,7 @@ import NotFound from "./containers/NotFound";
 import AppliedRoute from "./components/AppliedRoute";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
+import DataGrid from "./containers/DataGrid"
 
 
 export default ({ childProps }) =>
@@ -16,8 +17,10 @@ export default ({ childProps }) =>
     <AppliedRoute path="/" exact component={Home} props={childProps} />
     <UnauthenticatedRoute path="/login" exact component={Login} props={childProps} />
     <UnauthenticatedRoute path="/signup" exact component={Signup} props={childProps} />
+    <UnauthenticatedRoute path="/data" exact component={DataGrid} props={childProps} />
     <AuthenticatedRoute path="/locations/new" exact component={NewLocation} props={childProps} />
     <AuthenticatedRoute path="/locations/:countryId/:locationId" exact component={Locations} props={childProps} />
+    
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />
   </Switch>;

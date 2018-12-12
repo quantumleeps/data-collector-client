@@ -1,7 +1,5 @@
 import React, { Component } from "react"
-import { Jumbotron, Glyphicon } from "react-bootstrap"
 import "./NodeTable.css"
-// import DataPointBox from "../components/DataPointBox"
 import NodeBox from "../components/NodeBox"
 
 export default class NodeTable extends Component {
