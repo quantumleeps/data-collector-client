@@ -56,11 +56,14 @@ export default class NodeTable extends Component {
         
     }
 
-    returnNodeBox(table, nodes) {
+    returnNodeBox(table, nodes, depth) {
         nodes.forEach(
             (node, i) => {
-                table.push(<NodeBox text={node.name} items={node.datapoints.length && node.datapoints}/>)
-                node.children.length && this.returnNodeBox(table, node.children)
+                let boxStyle = {
+                    gridColumn: `${depth} / 20`,
+                }
+                table.push(<NodeBox boxStyle={boxStyle} text={`${node.name}`} items={node.datapoints.length && node.datapoints}/>)
+                node.children.length && this.returnNodeBox(table, node.children, (depth + 1))
             }
         )
         return table
@@ -69,8 +72,8 @@ export default class NodeTable extends Component {
     render() {
         return (
             
-            <div>
-                {this.returnNodeBox(this.state.table, this.state.nodes)}
+            <div className="wrapper">
+                {this.returnNodeBox(this.state.table, this.state.nodes, 1)}
             </div>
 
         )

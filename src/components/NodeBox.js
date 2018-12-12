@@ -10,7 +10,7 @@ export default class NodeBox extends Component {
 
     render() {
         return (
-            <div className="NodeBox">
+            <div style={this.props.boxStyle} className="NodeBox">
                 {this.props.text}
                 {this.props.items.length && this.props.items.map(
                     (item) =>
